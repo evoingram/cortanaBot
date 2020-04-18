@@ -1,7 +1,0 @@
-.DS_Store
-node_modules
-npm-debug.log
-Thumbs.db
-.idea
-public/
-.vscode/*
