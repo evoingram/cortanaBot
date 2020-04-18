@@ -16,12 +16,12 @@ class EchoBot extends ActivityHandler {
 		super();
 		this.userState = userState;
 		this.conversationState = conversationState;
-		this.dialogStateAccessor = conversationState.createProperty(DIALOG_STATE_ACCESSOR);
-
-		this.countProperty = conversationState.createProperty(TURN_COUNTER_PROPERTY);
+		this.countProperty = this.conversationState.createProperty(TURN_COUNTER_PROPERTY);
+		this.dialogStateAccessor = this.conversationState.createProperty(DIALOG_STATE_ACCESSOR);
 		this.userName = this.userState.createProperty(USER_NAME_PROP);
+
 		// create dialog set
-		this.dialogs = new Dialog(this.dialogStateAccessor);
+		this.dialogs = new DialogSet(this.dialogStateAccessor);
 
 		// add prompts
 		this.dialogs.add(new TextPrompt(NAME_PROMPT));
@@ -108,6 +108,9 @@ class EchoBot extends ActivityHandler {
 		}
 		// save state changes
 		await this.conversationState.saveChanges(turnContext);
+
+		// save changes to the username
+		await this.userState.saveChanges(turnContext);
 	}
 }
 
