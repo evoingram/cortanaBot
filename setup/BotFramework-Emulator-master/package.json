@@ -1,0 +1,82 @@
+{
+  "scripts": {
+    "bootstrap": "lerna bootstrap --hoist --ignore @bfemulator/tools",
+    "bootstrap:dev": "lerna bootstrap --hoist",
+    "build": "npm rebuild node-sass && npm run rebuild:keytar:electron && lerna run build",
+    "lint": "lerna run lint --no-bail",
+    "lint:fix": "lerna run lint:fix --no-bail",
+    "rebuild:keytar:electron": "rimraf node_modules/keytar/build && electron-rebuild",
+    "rebuild:keytar:node": "npm rebuild keytar",
+    "start": "cd packages\\app\\client && npm run start",
+    "start:test-bot": "lerna run --scope @bfemulator/tools start:test-bot --stream",
+    "test": "npm run rebuild:keytar:node && jest --no-cache --runInBand --testPathIgnorePatterns=/packages/app/main/e2e/",
+    "test:coveralls": "jest --runInBand --coverage --coverageReporters=text-lcov | coveralls",
+    "test:e2e": "npm run rebuild:keytar:electron && jest --no-cache --runInBand --forceExit --testPathPattern=/e2e/.*\\.spec\\.ts$",
+    "test:gen-lcov": "npm run test -- --coverage --coverageReporters=lcov --coverageReporters=text",
+    "uploadcoverage": "cat ./coverage/lcov.info | coveralls"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-decorators": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-react-jsx": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-typescript": "^7.1.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "24.8.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.0",
+    "prettier": "^1.15.3"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./testSetup.js"
+    ],
+    "transform": {
+      "^.+\\.(tsx|ts|js|jsx)$": "./babel-jest-config"
+    },
+    "coverageDirectory": "<rootDir>/coverage/",
+    "collectCoverageFrom": [
+      "<rootDir>/packages/**/src/**/?(*.)(ts)?(x)",
+      "!<rootDir>/packages/**/src/**/?(*.)(d).(ts)",
+      "!<rootDir>/packages/**/src/**/?(*.)(spec|test).(ts)?(x)",
+      "!**/node_modules/**",
+      "!**/lib/**",
+      "!**/build/**"
+    ],
+    "globals": {
+      "__JEST_ENV__": true
+    },
+    "testURL": "http://localhost",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "moduleNameMapper": {
+      ".\\.css$": "<rootDir>/jestMocks/styleMock.js",
+      ".\\.scss$": "<rootDir>/jestMocks/styleMock.js",
+      ".\\.svg$": "<rootDir>/jestMocks/svgMock.js"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "lerna": "^3.14.1",
+    "keytar": "^4.7.0"
+  }
+}

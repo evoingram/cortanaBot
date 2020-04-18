@@ -1,0 +1,32 @@
+.header {
+  color: var(--luis-default-color);
+  font-family: var(--default-font-family);
+  font-size: 12px;
+  padding: 6px 3px;
+  height: 27px; // 6px pad top + 6px pad bot + 15px text height
+  user-select: text;
+  display: flex;
+  flex-shrink: 0;
+  white-space: nowrap;
+
+  span {
+    height: 15px;
+    line-height: 15px;
+    display: inline-block;
+
+    strong {
+      color: var(--luis-header-bold-color);
+    }
+  }
+
+  span + span {
+    margin-left: 16px;
+  }
+}
+
+.app-id {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+}

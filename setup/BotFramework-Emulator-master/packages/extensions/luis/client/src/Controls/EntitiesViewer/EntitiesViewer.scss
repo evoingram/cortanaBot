@@ -1,0 +1,14 @@
+.entities-viewer {
+  padding-top: 32px;
+  color: var(--luis-default-color);
+}
+
+:global {
+  #entities {
+    padding-top: 8px;
+  }
+
+  #header {
+    font-weight: bold;
+  }
+}
