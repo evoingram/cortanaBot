@@ -1,0 +1,18 @@
+{
+    "name": "ericasBot",
+    "description": "",
+    "services": [
+        {
+            "type": "endpoint",
+            "appId": "7c991727-64c7-4b54-ac3e-b78764cc6fe7",
+            "appPassword": "udWiLpb7];wjHQn1>ljyaZR4_c4=f=",
+            "endpoint": "http://f7c2b9d2.ngrok.io/api/messages",
+            "id": "d217f820-81a3-11ea-ad91-2d673289ff10",
+            "name": "http://f7c2b9d2.ngrok.io/api/messages"
+        }
+    ],
+    "padlock": "",
+    "version": "2.0",
+    "overrides": null,
+    "path": "E:\\projects\\cortanaBot\\ericasBot\\ericasBot.bot"
+}
