@@ -1,5 +1,3 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
 
 const { ActivityHandler, TurnContext, ActivityTypes } = require('botbuilder');
 const { DialogSet, WaterfallDialog, TextPrompt, Dialog } = require('botbuilder-dialogs');
@@ -20,20 +18,15 @@ class EchoBot extends ActivityHandler {
 		this.dialogStateAccessor = this.conversationState.createProperty(DIALOG_STATE_ACCESSOR);
 		this.userName = this.userState.createProperty(USER_NAME_PROP);
 
-		// create dialog set
 		this.dialogs = new DialogSet(this.dialogStateAccessor);
 
-		// add prompts
 		this.dialogs.add(new TextPrompt(NAME_PROMPT));
 
-		// create dialog that asks user for their name
 		this.dialogs.add(
 			new WaterfallDialog(WHO_ARE_YOU, [this.askForName.bind(this), this.collectAndDisplayName.bind(this)])
 		);
-		// create dialog that displays user's name after it's collected
 		this.dialogs.add(new WaterfallDialog(HELLO_USER, [this.displayName.bind(this)]));
 
-		// See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
 		/*
 		this.onMessage(async (context, next) => {
 			await context.sendActivity(`You said '${context.activity.text}'`, `You said '${context.activity.text}'`);

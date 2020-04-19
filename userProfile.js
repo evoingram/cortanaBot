@@ -2,12 +2,12 @@
 // Licensed under the MIT License.
 
 class UserProfile {
-    constructor(transport, name, age, picture) {
-        this.transport = transport;
-        this.name = name;
-        this.age = age;
-        this.picture = picture;
-    }
+	constructor(pLanguage, name, age, picture) {
+		this.pLanguage = pLanguage;
+		this.name = name;
+		this.age = age;
+		this.picture = picture;
+	}
 }
 
 module.exports.UserProfile = UserProfile;
