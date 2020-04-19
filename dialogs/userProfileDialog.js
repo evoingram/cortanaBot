@@ -108,7 +108,6 @@ class UserProfileDialog extends ComponentDialog {
 			// return await step.next(-1);
 		}
 	}
-
 	async pictureStep(step) {
 		step.values.age = step.result;
 
