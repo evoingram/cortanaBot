@@ -1,6 +1,3 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
 const { MessageFactory } = require('botbuilder');
 const {
 	AttachmentPrompt,
@@ -39,7 +36,7 @@ class UserProfileDialog extends ComponentDialog {
 
 		this.addDialog(
 			new WaterfallDialog(WATERFALL_DIALOG, [
-				this.transportStep.bind(this),
+				this.pLanguageStep.bind(this),
 				this.nameStep.bind(this),
 				// this.nameConfirmStep.bind(this),
 				this.ageStep.bind(this),
@@ -63,7 +60,7 @@ class UserProfileDialog extends ComponentDialog {
 		}
 	}
 
-	async transportStep(step) {
+	async pLanguageStep(step) {
 		return await step.prompt(CHOICE_PROMPT, {
 			prompt: 'Please enter your preferred programming language of choice.',
 			choices: ChoiceFactory.toChoices(['COBOL', 'JavaScript', 'HTML', 'Visual Basic', 'Python'])
@@ -71,7 +68,7 @@ class UserProfileDialog extends ComponentDialog {
 	}
 
 	async nameStep(step) {
-		step.values.transport = step.result.value;
+		step.values.pLanguage = step.result.value;
 		return await step.prompt(NAME_PROMPT, `'What's your name?`);
 	}
 
@@ -86,7 +83,7 @@ class UserProfileDialog extends ComponentDialog {
 		await step.context.sendActivity(`Thanks, ${step.result}.  Now I'm going to ask The Question.`);
 
 		// if (step.result) {
-		// User said "yes" so we will be prompting for the age.
+		// User said "yes" so we will prompt for the age.
 		const promptOptions = {
 			prompt: 'How old are you?',
 			retryPrompt: 'Come on, your age must be greater than 0 and less than 150.'
@@ -127,12 +124,12 @@ class UserProfileDialog extends ComponentDialog {
 		if (step.result) {
 			const userProfile = await this.userProfile.get(step.context, new UserProfile());
 
-			userProfile.transport = step.values.transport;
+			userProfile.pLanguage = step.values.pLanguage;
 			userProfile.name = step.values.name;
 			userProfile.age = step.values.age;
 			userProfile.picture = step.values.picture;
 
-			let msg = `I have your choice of programming language as ${userProfile.transport}, your name as ${userProfile.name},`;
+			let msg = `I have your choice of programming language as ${userProfile.pLanguage}, your name as ${userProfile.name},`;
 			if (userProfile.age !== -1) {
 				msg += ` and your age as ${userProfile.age}`;
 			}
