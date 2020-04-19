@@ -94,19 +94,19 @@ class UserProfileDialog extends ComponentDialog {
 	}
 
 	async ageStep(step) {
-		if (step.result) {
-			// User said "yes" so we will be prompting for the age.
-			// WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-			const promptOptions = {
-				prompt: 'Please enter your age.',
-				retryPrompt: 'The value entered must be greater than 0 and less than 150.'
-			};
+		// if (step.result) {
+		// User said "yes" so we will be prompting for the age.
+		// WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
+		const promptOptions = {
+			prompt: 'Please enter your age.',
+			retryPrompt: 'The value entered must be greater than 0 and less than 150.'
+		};
 
-			return await step.prompt(NUMBER_PROMPT, promptOptions);
-		} else {
-			// User said "no" so we will skip the next step. Give -1 as the age.
-			// return await step.next(-1);
-		}
+		return await step.prompt(NUMBER_PROMPT, promptOptions);
+		// } else {
+		// User said "no" so we will skip the next step. Give -1 as the age.
+		// return await step.next(-1);
+		// }
 	}
 	async pictureStep(step) {
 		step.values.age = step.result;
