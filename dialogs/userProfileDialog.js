@@ -132,7 +132,7 @@ class UserProfileDialog extends ComponentDialog {
 			userProfile.age = step.values.age;
 			userProfile.picture = step.values.picture;
 
-			let msg = `I have your choice of programming language as as ${userProfile.transport}, your name as ${userProfile.name},`;
+			let msg = `I have your choice of programming language as ${userProfile.transport}, your name as ${userProfile.name},`;
 			if (userProfile.age !== -1) {
 				msg += ` and your age as ${userProfile.age}`;
 			}
