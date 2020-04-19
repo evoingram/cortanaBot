@@ -90,7 +90,7 @@ class UserProfileDialog extends ComponentDialog {
 		await step.context.sendActivity(`Thanks ${step.result}.`);
 
 		// WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-		return await step.prompt(CONFIRM_PROMPT, 'Do you want to give your age?', ['yes', 'no']);
+		// return await step.prompt(CONFIRM_PROMPT, 'Do you want to give your age?', ['yes', 'no']);
 	}
 
 	async ageStep(step) {
@@ -105,10 +105,9 @@ class UserProfileDialog extends ComponentDialog {
 			return await step.prompt(NUMBER_PROMPT, promptOptions);
 		} else {
 			// User said "no" so we will skip the next step. Give -1 as the age.
-			return await step.next(-1);
+			// return await step.next(-1);
 		}
 	}
-
 	async pictureStep(step) {
 		step.values.age = step.result;
 
@@ -117,7 +116,10 @@ class UserProfileDialog extends ComponentDialog {
 		// We can send messages to the user at any point in the WaterfallStep.
 		await step.context.sendActivity(msg);
 
-		if (channels && step.context.activity.channelId === channels.msteams) {
+		if (
+			(channels && step.context.activity.channelId === channels.msteams) ||
+			(channels && step.context.activity.channelId === channels.cortana)
+		) {
 			// This attachment prompt example is not designed to work for Teams attachments, so skip it in this case
 			await step.context.sendActivity('Skipping attachment prompt in Teams channel...');
 			return await step.next(undefined);
